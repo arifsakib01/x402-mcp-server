@@ -2,32 +2,39 @@
 # https://smithery.ai/docs/config
 
 name: x402-mcp-server
-description: "A suite of premium MCP tools (Synthetic Data Generator, Crypto Market Analytics, Web Content Extractor) gated by HTTP 402 USDC micropayments on Base network."
+title: "Monetized MCP AI Tools Suite ($0.50 USD)"
+description: "A suite of premium MCP tools (Synthetic Data Generator, Crypto Market Analytics, Web Extractor) gated by $0.50 USD API Key authorization with automated Stripe fiat checkout."
 homepage: "https://x402-mcp-server-production.up.railway.app/"
-icon: "https://raw.githubusercontent.com/arif-sakib/x402-mcp-server/main/icon.png"
+icon: "https://raw.githubusercontent.com/arifsakib01/x402-mcp-server/main/icon.png"
 
 configSchema:
   type: object
   properties:
-    paymentSignature:
+    apiKey:
       type: string
-      description: "x402 payment signature (Base network tx hash) for 0.05 USDC settlement"
+      description: "API Key for tool execution ($0.50 USD/call). Purchase credits at https://x402-mcp-server-production.up.railway.app/buy"
 
 url: "https://x402-mcp-server-production.up.railway.app/mcp/sse"
 
+payment:
+  protocol: stripe_checkout
+  currency: USD
+  amount: 0.50
+  buy_credits: "https://x402-mcp-server-production.up.railway.app/buy"
+
 tools:
   - name: generate_synthetic_data
-    description: "Generates high-fidelity synthetic user profiles, blockchain transactions, or IoT sensor streams."
+    description: "Generates high-fidelity synthetic user profiles, blockchain transactions, or IoT sensor streams ($0.50 USD/call)."
     annotations:
       readOnly: true
       idempotent: true
   - name: crypto_market_analytics
-    description: "Deep DEX liquidity pool metrics, 24h volume, price impact, and sentiment scores on Base network."
+    description: "Deep DEX liquidity pool metrics, 24h volume, price impact, and sentiment scores on Base network ($0.50 USD/call)."
     annotations:
       readOnly: true
       idempotent: true
   - name: web_content_extractor
-    description: "Extracts clean markdown summaries, key takeaways, and structured JSON metadata from web URLs."
+    description: "Extracts clean markdown summaries, key takeaways, and structured JSON metadata from web URLs ($0.50 USD/call)."
     annotations:
       readOnly: true
       idempotent: true
