@@ -616,8 +616,15 @@ async def server_card():
         "tools": [
             {
                 "name": "generate_synthetic_data",
-                "description": "Generates synthetic user profiles, transactions, or IoT streams.",
-                "annotations": {"readOnly": True, "idempotent": True},
+                "title": "Synthetic Data Generator",
+                "description": "Generates high-fidelity synthetic user profiles, blockchain transactions, or IoT sensor streams ($0.50 USD/call).",
+                "annotations": {
+                    "readOnly": True,
+                    "idempotent": True,
+                    "readOnlyHint": True,
+                    "idempotentHint": True,
+                    "destructiveHint": False
+                },
                 "inputSchema": {
                     "type": "object",
                     "properties": {
@@ -625,28 +632,71 @@ async def server_card():
                         "schema_type": {"type": "string", "description": "Target schema: user_profile, transaction, or iot_sensor."}
                     }
                 },
+                "outputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "metadata": {"type": "object", "description": "Generation metadata and timestamp."},
+                        "records": {"type": "array", "description": "List of synthetic data records."}
+                    },
+                    "required": ["metadata", "records"]
+                }
             },
             {
                 "name": "crypto_market_analytics",
-                "description": "Base network token analytics, DEX liquidity & sentiment.",
-                "annotations": {"readOnly": True, "idempotent": True},
+                "title": "Base Crypto Market Analytics",
+                "description": "Base network token analytics, DEX liquidity, 24h volume & sentiment scores ($0.50 USD/call).",
+                "annotations": {
+                    "readOnly": True,
+                    "idempotent": True,
+                    "readOnlyHint": True,
+                    "idempotentHint": True,
+                    "destructiveHint": False
+                },
                 "inputSchema": {
                     "type": "object",
                     "properties": {
                         "token_symbol": {"type": "string", "description": "Ticker symbol on Base (e.g. USDC, WETH, AERO)."}
                     }
                 },
+                "outputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "network": {"type": "string", "description": "Base network identifier."},
+                        "token_symbol": {"type": "string", "description": "Token symbol."},
+                        "price_usd": {"type": "number", "description": "Current price in USD."},
+                        "dex_liquidity_usd": {"type": "number", "description": "Total DEX liquidity in USD."},
+                        "sentiment_score": {"type": "number", "description": "Sentiment score."}
+                    },
+                    "required": ["network", "token_symbol", "price_usd"]
+                }
             },
             {
                 "name": "web_content_extractor",
-                "description": "Clean markdown & JSON extraction from web URLs.",
-                "annotations": {"readOnly": True, "idempotent": True},
+                "title": "Web Content Extractor",
+                "description": "Clean markdown summaries and JSON metadata extracted from web URLs ($0.50 USD/call).",
+                "annotations": {
+                    "readOnly": True,
+                    "idempotent": True,
+                    "readOnlyHint": True,
+                    "idempotentHint": True,
+                    "destructiveHint": False
+                },
                 "inputSchema": {
                     "type": "object",
                     "properties": {
                         "url": {"type": "string", "description": "Full HTTPS URL to scrape and summarize."}
                     }
                 },
+                "outputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "url": {"type": "string", "description": "Extracted URL."},
+                        "title": {"type": "string", "description": "Extracted page title."},
+                        "summary": {"type": "string", "description": "Clean LLM-optimized summary."},
+                        "key_takeaways": {"type": "array", "description": "Key takeaways."}
+                    },
+                    "required": ["url", "title", "summary"]
+                }
             },
         ],
     }
