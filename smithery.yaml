@@ -1,0 +1,33 @@
+# Smithery.ai Server Configuration
+# https://smithery.ai/docs/config
+
+name: x402-mcp-server
+description: "A suite of premium MCP tools (Synthetic Data Generator, Crypto Market Analytics, Web Content Extractor) gated by HTTP 402 USDC micropayments on Base network."
+homepage: "https://x402-mcp-server-production.up.railway.app/"
+icon: "https://raw.githubusercontent.com/arif-sakib/x402-mcp-server/main/icon.png"
+
+configSchema:
+  type: object
+  properties:
+    paymentSignature:
+      type: string
+      description: "x402 payment signature (Base network tx hash) for 0.05 USDC settlement"
+
+url: "https://x402-mcp-server-production.up.railway.app/mcp/sse"
+
+tools:
+  - name: generate_synthetic_data
+    description: "Generates high-fidelity synthetic user profiles, blockchain transactions, or IoT sensor streams."
+    annotations:
+      readOnly: true
+      idempotent: true
+  - name: crypto_market_analytics
+    description: "Deep DEX liquidity pool metrics, 24h volume, price impact, and sentiment scores on Base network."
+    annotations:
+      readOnly: true
+      idempotent: true
+  - name: web_content_extractor
+    description: "Extracts clean markdown summaries, key takeaways, and structured JSON metadata from web URLs."
+    annotations:
+      readOnly: true
+      idempotent: true

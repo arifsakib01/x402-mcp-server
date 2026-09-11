@@ -1,0 +1,39 @@
+# x402-Gated MCP Server — Fly.io Configuration
+# Deploy with: fly launch && fly deploy
+
+app = "x402-mcp-server"
+primary_region = "iad"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "8402"
+  VERIFY_MODE = "onchain"
+  BASE_RPC_URL = "https://mainnet.base.org"
+  LOG_LEVEL = "INFO"
+  # PAYMENT_WALLET_ADDRESS → set via `fly secrets set PAYMENT_WALLET_ADDRESS=0x...`
+  # PAYMENT_AMOUNT         → set via `fly secrets set PAYMENT_AMOUNT=0.05`
+
+[http_service]
+  internal_port = 8402
+  force_https = true
+  auto_start_machines = true
+  auto_stop_machines = "stop"
+  min_machines_running = 0
+
+  [http_service.concurrency]
+    type = "requests"
+    hard_limit = 250
+    soft_limit = 200
+
+  [[http_service.checks]]
+    grace_period = "10s"
+    interval = "30s"
+    method = "GET"
+    path = "/"
+    timeout = "5s"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "256mb"
