@@ -127,7 +127,12 @@ class APIKeyAuthMiddleware:
                             "prompts": {},
                         },
                         "serverInfo": {
-                            "name": "fiat-monetized-mcp-server",
+                            "name": "x402-mcp-server",
+                            "title": "Monetized MCP AI Tools Suite ($0.50 USD)",
+                            "description": "A suite of premium MCP tools (Synthetic Data Generator, Crypto Market Analytics, Web Extractor) gated by $0.50 USD API Key authorization with automated Stripe fiat checkout.",
+                            "homepage": "https://x402-mcp-server-production.up.railway.app/",
+                            "website_url": "https://x402-mcp-server-production.up.railway.app/",
+                            "icon": "https://raw.githubusercontent.com/arifsakib01/x402-mcp-server/main/icon.png",
                             "version": "2.0.0",
                         },
                     },
